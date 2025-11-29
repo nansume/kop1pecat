@@ -1,0 +1,34 @@
+<!-- File: /var/www/wpastecat/index.html -->
+<HTML>
+
+<HEAD>
+<META CHARSET="utf-8"/>
+<TITLE>Kop1peCat</TITLE>
+<!-- Compatible with text web browser -->
+</HEAD>
+
+
+<BODY>
+<H1>Kop1peCat</H1>
+<P>pastecat for your own self-hosting!</P>
+
+<PRE>
+<CODE>
+webserver - httpd busybox
+webclient - wget from busybox 
+
+elinks http://localhost/pastecat
+wget -q --post-file "/etc/resolv.conf" -O - "http://localhost/pastecat"
+wget -q --post-data "Hello world!" -O - http://localhost/pastecat
+cat /etc/resolv.conf | wget -q --post-file - -O - http://localhost/pastecat
+</CODE>
+</PRE>
+
+<PRE>
+By <A HREF="https://github.com/nansume/kop1pecat">NaNsume 2025.</A>
+</PRE>
+
+</BODY>
+
+
+</HTML>

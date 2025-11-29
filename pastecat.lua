@@ -8,7 +8,7 @@ require('os.isfile')
 require('io.execute')
 
 local HTTP_VER, HTTP_CODE, HTTP_MESG, PASTEDIR, RET
-local response_header, body, stext, pastename = ""
+local response_header, body, stext, pastename
 local HTTP_HOST, REQUEST_URI, REQUEST_METHOD, REMOTE_ADDR
 local QUERY_STRING, CONTENT_TYPE, CONTENT_LENGTH
 local HTTP_USER_AGENT, HTTP_REFERER
@@ -16,11 +16,6 @@ local configfile, base_uri, pastedir, pastefile_url
 local maxdirsize, maxfilesize, dirsize, file, cmd
 
 configfile = "/etc/pastecat.conf"
-
-if os.isfile(configfile) then
-  dofile(configfile)
-end
-
 HTTP_HOST = os.getenv("HTTP_HOST")
 REQUEST_URI = os.getenv("REQUEST_URI")
 REQUEST_METHOD = os.getenv("REQUEST_METHOD")
@@ -30,10 +25,15 @@ CONTENT_TYPE  = os.getenv("CONTENT_TYPE")
 CONTENT_LENGTH = tonumber(os.getenv("CONTENT_LENGTH"))
 HTTP_USER_AGENT = os.getenv("HTTP_USER_AGENT")
 HTTP_REFERER = os.getenv("HTTP_REFERER")
-
+pastename = ""
+stext = "Type in here"
 base_uri = string.gsub(REQUEST_URI, "/[^/]*$", "")
 response_header = {}
 body = {}
+
+if os.isfile(configfile) then
+  dofile(configfile)
+end
 
 -- It fallback
 if not WWWDIR then WWWDIR = os.getenv("PWD") end
@@ -47,17 +47,16 @@ if REQUEST_METHOD == "GET" and string.find(QUERY_STRING, "^pastename=[A-z0-9]*%.
   pastename = string.gsub(pastename, "&.*$", "")
   pastename = string.gsub(pastename, "%.text$", "")
 else
+  -------------------------------     Generic Random Name     --------------------------------------
+  local chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789" -- The Char Library
 
-------------------------------     Generic Random Name     ----------------------------------------
-local chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789" -- The Char Library
-
-while true do
-  local rint = math.random(1, #chars) -- 1 out of length of chars
-  local i = chars:sub(rint, rint) -- Pick it (rchar)
-  if #pastename == 8 then break end
-  pastename = pastename .. i
-end
----------------------------------------------------------------------------------------------------
+  while true do
+    local rint = math.random(1, #chars) -- 1 out of length of chars
+    local i = chars:sub(rint, rint) -- Pick it (rchar)
+    if #pastename == 8 then break end
+    pastename = pastename .. i
+  end
+  --------------------------------------------------------------------------------------------------
 end
 
 pastefile = WWWDIR .. pastedir .. pastename .. ".text"
@@ -66,7 +65,6 @@ pastefile_url = "http://" .. HTTP_HOST .. pastedir .. pastename .. ".text"
 HTTP_VER = "HTTP/1.0"
 HTTP_CODE = 200
 HTTP_MESG = "OK"
-stext = "Type in here"
 
 if os.isfile(pastefile) then
   file = io.open(pastefile, "r")

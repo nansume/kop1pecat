@@ -1,0 +1,17 @@
+# Maintainer: Shellgen  <shellgen-at-uncensored-dot-citadel-dot-org>
+
+pkgname=kop1pecat
+pkgver=9999
+pkgrel=1
+pkgdesc="Simple pastecat service for your own self-hosting. (Lua)"
+arch=(all)
+url="https://github.com/nansume/kop1pecat"
+license=(UnLicense)
+provides=(${pkgname})
+conflicts=(${pkgname})
+source=( https://github.com/nansume/kop1pecat/archive/master.tar.gz -> ${pkgname}-${pkgver}.tar.gz )
+b2sums=('')
+
+package() {
+  make DESTDIR="/" install-strip
+}

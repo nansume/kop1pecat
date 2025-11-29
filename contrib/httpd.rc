@@ -1,0 +1,36 @@
+#!/bin/sh
+# File: /usr/local/etc/init.d/httpd
+
+RUN=${0##*[/-]}
+XUSER=${RUN}
+WWWDIR="/var/www"
+PORT="80"
+LOG="/var/log/${RUN}.log"
+
+case ${1} in
+  'stop')
+    PID=$(pgrep ${RUN}) && kill -s SIGKILL ${PID}
+  ;;
+  'start')
+    pgrep ${RUN} && exit
+
+    >>"${LOG:?}"
+    chown ${XUSER}:${XUSER} "${LOG}"
+
+    [ -e "/proc/sys/net/ipv6/bindv6only" ] && printf 0 > "/proc/sys/net/ipv6/bindv6only"
+    printf ${PORT} > "/proc/sys/net/ipv4/ip_unprivileged_port_start"
+
+    ulimit -Sf '200000'  # maxsize: 102400000 [~102.4MB]  $((200000*512))
+
+    setuidgid ${XUSER} sh -c \
+    "(${RUN} -f -vv -h ${WWWDIR}/ -p 0.0.0.0:${PORT} -c /etc/${RUN}.conf > ${LOG} 2>&1 &)"
+
+    usleep "200000"
+    printf 1024 > "/proc/sys/net/ipv4/ip_unprivileged_port_start"
+    [ -e "/proc/sys/net/ipv6/bindv6only" ] && printf 1 > "/proc/sys/net/ipv6/bindv6only"
+  ;;
+  *)
+    echo Usage: $0 "{start|stop}" >&2  # for error
+    exit 1
+esac &&
+printf "\e[1;32m +\e[0;36m ${RUN}\e[m: \e[0;31m${1}\e[m... \e[0;33mok\e[m\n"

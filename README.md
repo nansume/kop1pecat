@@ -1,15 +1,17 @@
 # Kop1peCat
 
-Simple pastecat service for your own self-hosting.
+The pastecat service by Lua for your own self-hosting.
+
+* Other alternatives: catbin, fiche, pastebin.
 
 ---
 
-Features
+## Features
 ===
-- NoJS - Working in console/term, in text web browser, e.g., Links, ELinks, and Lynx.
+- NoJS - Working in console/term, in text-mode web browser, e.g., ELinks, Links, and Lynx.
 - NoDB - Only text files.
 - Auto generic name, e.g., zHd4wYGs.text
-- Simple lua script for CGI e.g: httpd busybox.
+- Simple lua script for CGI, e.g., httpd busybox.
 - Auto remove old files.
 - Limit maxsize file.
 - Limit maxsize upload directory.
@@ -17,13 +19,13 @@ Features
 
 ---
 
-Issue
+## Issue
 ===
 - Probably insecure!
 
 ---
 
-Requirements
+## Requirements
 ===
 - Lua-5.4.6
 - Lualib: os.isdir
@@ -33,13 +35,14 @@ Requirements
 
 ---
 
-Install
+## Install
 ===
-  $ sudo make PREFIX=/usr/local install
+  $ sudo make PREFIX=/ install
+  $ sudo make PREFIX=/ install-strip
 
 ---
 
-Manual Install
+## Manual Install
 ===
 ```
   $ sudo cp include/execute.lua /lib/lua/io/
@@ -52,8 +55,9 @@ Manual Install
 ```
 ---
 
-Setup for httpd over inetd (Not secure!)
+## Setup
 ===
+Setup for httpd over inetd (Not secure!)
 ```
   $ sudo echo "80 stream tcp nowait www-user httpd httpd -i -h /var/www -c /etc/httpd.conf" \
  > /etc/inetd.conf
@@ -61,7 +65,7 @@ Setup for httpd over inetd (Not secure!)
 
 ---
 
-Extras
+## Extras
 ===
 Delete files older than 7 days.
 ```
@@ -77,8 +81,8 @@ add: LUAPATH=/lib/lua:${LUAPATH}
 
 ## License
 
-This work is multi-licensed under either the GPLv3 or the MIT license or the UnLicense.
+This work is multi-licensed under either GPLv3 or MIT license or UnLicense.
 
  * GNU GPLv3 [LICENSE.GPLv3](http://www.gnu.org/licenses/gpl-3.0.html)
- * MIT license ([LICENSE.MIT](LICENSE.MIT) or http://opensource.org/licenses/MIT)
- * UnLicense ([UNLICENSE](UNLICENSE) or http://unlicense.org/)
+ * MIT license ([LICENSE.MIT](/raw/master/LICENSE.MIT) or http://opensource.org/licenses/MIT)
+ * UnLicense ([UNLICENSE](/raw/master/UNLICENSE) or http://unlicense.org/)
