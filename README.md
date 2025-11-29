@@ -7,7 +7,7 @@ The pastecat service by Lua for your own self-hosting.
 ---
 
 ## Features
-===
+
 - NoJS - Working in console/term, in text-mode web browser, e.g., ELinks, Links, and Lynx.
 - NoDB - Only text files.
 - Auto generic name, e.g., zHd4wYGs.text
@@ -20,13 +20,13 @@ The pastecat service by Lua for your own self-hosting.
 ---
 
 ## Issue
-===
+
 - Probably insecure!
 
 ---
 
 ## Requirements
-===
+
 - Lua-5.4.6
 - Lualib: os.isdir
 - Lualib: os.isfile
@@ -36,14 +36,20 @@ The pastecat service by Lua for your own self-hosting.
 ---
 
 ## Install
-===
-  $ sudo make PREFIX=/ install
-  $ sudo make PREFIX=/ install-strip
 
+Install without compile script in one file.
+```
+  $ sudo make PREFIX=/ install
+```
+Install and compile script to Bytecode a one file with strip debug info (recomended).
+
+```
+  $ sudo make PREFIX=/ install-strip
+```
 ---
 
 ## Manual Install
-===
+
 ```
   $ sudo cp include/execute.lua /lib/lua/io/
   $ sudo cp include/*.lua /lib/lua/os/
@@ -56,7 +62,7 @@ The pastecat service by Lua for your own self-hosting.
 ---
 
 ## Setup
-===
+
 Setup for httpd over inetd (Not secure!)
 ```
   $ sudo echo "80 stream tcp nowait www-user httpd httpd -i -h /var/www -c /etc/httpd.conf" \
@@ -66,7 +72,7 @@ Setup for httpd over inetd (Not secure!)
 ---
 
 ## Extras
-===
+
 Delete files older than 7 days.
 ```
   $ sudo echo "0 0 */1 * * find /var/www/wpastecat/*.text -mtime +7 -exec rm -- {} \;" \
@@ -84,5 +90,5 @@ add: LUAPATH=/lib/lua:${LUAPATH}
 This work is multi-licensed under either GPLv3 or MIT license or UnLicense.
 
  * GNU GPLv3 [LICENSE.GPLv3](http://www.gnu.org/licenses/gpl-3.0.html)
- * MIT license ([LICENSE.MIT](/raw/master/LICENSE.MIT) or http://opensource.org/licenses/MIT)
- * UnLicense ([UNLICENSE](/raw/master/UNLICENSE) or http://unlicense.org/)
+ * MIT license ([LICENSE.MIT](//nansume/kop1pecat/raw/master/LICENSE.MIT) or http://opensource.org/licenses/MIT)
+ * UnLicense ([UNLICENSE](//nansume/kop1pecat/raw/master/UNLICENSE) or http://unlicense.org/)
