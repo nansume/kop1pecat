@@ -90,5 +90,5 @@ add: LUAPATH=/lib/lua:${LUAPATH}
 This work is multi-licensed under either GPLv3 or MIT license or UnLicense.
 
  * GNU GPLv3 [LICENSE.GPLv3](http://www.gnu.org/licenses/gpl-3.0.html)
- * MIT license ([LICENSE.MIT](//nansume/kop1pecat/raw/master/LICENSE.MIT) or http://opensource.org/licenses/MIT)
- * UnLicense ([UNLICENSE](//nansume/kop1pecat/raw/master/UNLICENSE) or http://unlicense.org/)
+ * MIT license [LICENSE.MIT](https://github.com/nansume/kop1pecat/raw/master/LICENSE.MIT)
+ * UnLicense [UNLICENSE](https://github.com/nansume/kop1pecat/raw/master/UNLICENSE)
