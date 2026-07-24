@@ -6,6 +6,16 @@ The pastecat service by Lua for your own self-hosting.
 
 ---
 
+## Usage
+
+```
+$ elinks http://localhost/pastecat
+$ wget -q --post-file "/etc/resolv.conf" -O - "http://localhost/pastecat"
+$ wget -q --post-data "Hello world!" -O - http://localhost/pastecat
+$ cat /etc/resolv.conf | wget -q --post-file - -O - http://localhost/pastecat
+```
+---
+
 ## Features
 
 - NoJS - Working in console/term, in text-mode web browser, e.g., ELinks, Links, and Lynx.
@@ -39,25 +49,25 @@ The pastecat service by Lua for your own self-hosting.
 
 Install without compile script in one file.
 ```
-  $ sudo make PREFIX=/ install
+$ sudo make PREFIX=/ install
 ```
 Install and compile script to Bytecode a one file with strip debug info (recomended).
 
 ```
-  $ sudo make PREFIX=/ install-strip
+$ sudo make PREFIX=/ install-strip
 ```
 ---
 
 ## Manual Install
 
 ```
-  $ sudo cp include/execute.lua /lib/lua/io/
-  $ sudo cp include/*.lua /lib/lua/os/
-  $ sudo cp pastecat.lua /var/www/pastecat.cgi
-  $ sudo cp pastecat.conf /etc/pastecat.conf
-  $ sudo chmod +x /var/www/pastecat.cgi
-  $ sudo mkdir /var/www/wpastecat/
-  $ sudo cp pastecat.html /var/www/wpastecat/index.html
+$ sudo cp include/execute.lua /lib/lua/io/
+$ sudo cp include/*.lua /lib/lua/os/
+$ sudo cp pastecat.lua /var/www/pastecat.cgi
+$ sudo cp pastecat.conf /etc/pastecat.conf
+$ sudo chmod +x /var/www/pastecat.cgi
+$ sudo mkdir /var/www/wpastecat/
+$ sudo cp pastecat.html /var/www/wpastecat/index.html
 ```
 ---
 
@@ -65,7 +75,7 @@ Install and compile script to Bytecode a one file with strip debug info (recomen
 
 Setup for httpd over inetd (Not secure!)
 ```
-  $ sudo echo "80 stream tcp nowait www-user httpd httpd -i -h /var/www -c /etc/httpd.conf" \
+$ sudo echo "80 stream tcp nowait www-user httpd httpd -i -h /var/www -c /etc/httpd.conf" \
  > /etc/inetd.conf
 ```
 
@@ -75,7 +85,7 @@ Setup for httpd over inetd (Not secure!)
 
 Delete files older than 7 days.
 ```
-  $ sudo echo "0 0 */1 * * find /var/www/wpastecat/*.text -mtime +7 -exec rm -- {} \;" \
+$ sudo echo "0 0 */1 * * find /var/www/wpastecat/*.text -mtime +7 -exec rm -- {} \;" \
  > /var/spool/cron/crontabs/www-user
 ```
 
